@@ -46,10 +46,10 @@ pip install -e .
 ## Basic usage
 
 ```python
-from pyads_ipc_diag import MDP, CPU
+import pyads
+from pyads_ipc_diag import MDP, CPU, CONFIG_AREA
 
 with MDP("10.10.10.11.1.1") as ipc:
-    ipc.update_modules() # For now, this is required to read General Area modules
     cpu = CPU(ipc)
     print(cpu.info())
     # CPU_Info(
@@ -57,6 +57,8 @@ with MDP("10.10.10.11.1.1") as ipc:
     #   usage=3,
     #   temperature=43
     #   )
+    mac_address = ipc.read(CONFIG_AREA.NIC, 0x8001, 1, pyads.PLCTYPE_STRING)
+    print(mac_address) # nn:nn:nn:nn:nn:nn
 ```
 
 ---
