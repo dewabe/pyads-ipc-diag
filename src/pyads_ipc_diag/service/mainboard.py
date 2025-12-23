@@ -31,7 +31,6 @@ class MainboardInfo:
 
 class Mainboard(MDPService):
     MODULE = CONFIG_AREA.MAINBOARD
-    TABLE_BASE = 0x8001
 
     def __init__(self, ipc):
         self.ipc = ipc

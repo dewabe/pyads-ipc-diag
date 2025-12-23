@@ -27,7 +27,6 @@ class MemoryInfo:
 
 class Memory(MDPService):
     MODULE = CONFIG_AREA.MEMORY
-    TABLE_BASE = 0x8001
 
     def __init__(self, ipc):
         self.ipc = ipc

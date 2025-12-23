@@ -14,7 +14,17 @@ from .service import (
     CPU,
     Mainboard,
     Memory,
-    Fan
+    Fan,
+    NIC,
 )
 
-__all__ = ['MDP', 'TwinCAT', 'CPU', 'Mainboard', 'Memory', 'Fan']
+__all__ = [
+    'CONFIG_AREA',
+    'MDP',
+    'TwinCAT',
+    'CPU',
+    'Mainboard',
+    'Memory',
+    'Fan',
+    'NIC',
+]

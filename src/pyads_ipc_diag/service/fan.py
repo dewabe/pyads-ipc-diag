@@ -18,7 +18,6 @@ class FanInfo:
 
 class Fan(MDPService):
     MODULE = CONFIG_AREA.FAN
-    TABLE_BASE = 0x8001
 
     def __init__(self, ipc):
         self.ipc = ipc
