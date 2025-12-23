@@ -7,28 +7,31 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 10.18
 
 """
-from ctypes import (
-    c_uint16,
-    c_uint32,
-    c_int16
-)
-
-CONFIG_AREA_CPU = 0x000B
+from pyads_ipc_diag.areas import CONFIG_AREA
+from pyads_ipc_diag.data_types import UNSIGNED16, UNSIGNED32, SIGNED16, UNSIGNED64
 
 class FakeIPC:
-    """Minimal fake IPC that records read() calls and returns predefined values."""
     def __init__(self):
         self.calls = []
+        self.responses = {
+            (CONFIG_AREA.MEMORY, 0x8001, 1, UNSIGNED32): 1024,
+            (CONFIG_AREA.MEMORY, 0x8001, 2, UNSIGNED32): 2048,
+            (CONFIG_AREA.MEMORY, 0x8001, 3, UNSIGNED32): 0,
+            (CONFIG_AREA.MEMORY, 0x8001, 4, UNSIGNED32): 0,
+            (CONFIG_AREA.MEMORY, 0x8001, 5, UNSIGNED32): 0,
+            (CONFIG_AREA.MEMORY, 0x8001, 6, UNSIGNED64): 0,
+            (CONFIG_AREA.MEMORY, 0x8001, 7, UNSIGNED64): 0,
+
+            (CONFIG_AREA.CPU, 0x8001, 1, UNSIGNED32): 1917,
+            (CONFIG_AREA.CPU, 0x8001, 2, UNSIGNED16): 3,
+            (CONFIG_AREA.CPU, 0x8001, 3, SIGNED16): 43,
+        }
 
     def read(self, module, table_base, subindex, plc_type):
-        self.calls.append((module, table_base, subindex, plc_type))
+        key = (module, table_base, subindex, plc_type)
+        self.calls.append(key)
+        try:
+            return self.responses[key]
+        except KeyError:
+            raise AssertionError(f"Unexpected read() call: {key}")
 
-        # Return dummy values based on subindex (CPU.TABLE_BASE = 0x8001)
-        if (module, table_base, subindex, plc_type) == (CONFIG_AREA_CPU, 0x8001, 1, c_uint32):
-            return 1917  # frequency
-        if (module, table_base, subindex, plc_type) == (CONFIG_AREA_CPU, 0x8001, 2, c_uint16):
-            return 3  # usage
-        if (module, table_base, subindex, plc_type) == (CONFIG_AREA_CPU, 0x8001, 3, c_int16):
-            return 43  # temperature
-
-        raise AssertionError(f"Unexpected read() call: {(module, table_base, subindex, plc_type)}")

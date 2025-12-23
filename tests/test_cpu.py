@@ -7,7 +7,7 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 10.10
 
 """
-from . import FakeIPC
+from fake_ipc import FakeIPC
 
 from pyads_ipc_diag.service.cpu import CPU
 from pyads_ipc_diag.areas import CONFIG_AREA
