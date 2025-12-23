@@ -7,8 +7,8 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 10.57
 
 """
+from pyads_ipc_diag import CONFIG_AREA
 from pyads_ipc_diag.service.fan import Fan
-from pyads_ipc_diag.areas import CONFIG_AREA
 from pyads_ipc_diag.data_types import SIGNED16
 
 

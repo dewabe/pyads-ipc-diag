@@ -7,8 +7,8 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 11.46
 
 """
+from pyads_ipc_diag import CONFIG_AREA
 from pyads_ipc_diag.service.nic import NIC
-from pyads_ipc_diag.areas import CONFIG_AREA
 from pyads_ipc_diag.data_types import VISIBLE_STRING, BOOL
 
 

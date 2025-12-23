@@ -9,8 +9,8 @@ Project: pyads-ipc-diag
 """
 from .areas import CONFIG_AREA, SERVICE_AREA, DEVICE_AREA, GENERAL_AREA
 from .mdp import MDP
-from .service import *
-import data_types
+from .service import TwinCAT, CPU, Mainboard, Memory, Fan, NIC, OS
+from . import data_types
 
 __all__ = [
     'CONFIG_AREA',
