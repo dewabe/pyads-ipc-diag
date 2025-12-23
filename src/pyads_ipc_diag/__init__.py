@@ -8,6 +8,6 @@ Project: pyads-ipc-diag
 
 """
 from .mdp import MDP
-from .mpd_service import TwinCAT, CPU, Mainboard
+from .mpd_service import TwinCAT, CPU, Mainboard, Memory
 
-__all__ = ['MDP', 'TwinCAT', 'CPU', 'Mainboard']
+__all__ = ['MDP', 'TwinCAT', 'CPU', 'Mainboard', 'Memory']

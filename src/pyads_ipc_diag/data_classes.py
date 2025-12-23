@@ -8,6 +8,7 @@ Project: pyads-ipc-diag
 
 """
 from dataclasses import dataclass
+from typing import Optional
 
 @dataclass
 class TwinCAT_Info:
@@ -47,3 +48,15 @@ class Mainboard_Info:
     max_input_voltage: int
 
     board_temperature: int
+
+@dataclass
+class Memory_Info:
+    program_allocated_u32: int
+    program_available_u32: int
+
+    storage_allocated_u32: Optional[int]
+    storage_available_u32: Optional[int]
+    memory_division_u32: Optional[int]
+
+    program_allocated_u64: Optional[int]
+    program_available_u64: Optional[int]
