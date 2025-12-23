@@ -37,8 +37,8 @@ pip install -e .
 
 ## Features
 
-- Read IPC Diagnostics data via ADS
-- Read TwinCAT version information (Major / Minor / Build)
+- Read all IPC Diagnostics data via ADS
+- Read TwinCAT, CPU, and Mainboard information
 - Designed with a clean, extensible API
 
 ---
@@ -49,7 +49,7 @@ pip install -e .
 from pyads_ipc_diag import MDP, CPU
 
 with MDP("10.10.10.11.1.1") as ipc:
-    ipc.update_modules()
+    ipc.update_modules() # For now, this is required to read General Area modules
     cpu = CPU(ipc)
     print(cpu.info())
     # CPU_Info(
@@ -74,5 +74,4 @@ with MDP("10.10.10.11.1.1") as ipc:
 * Possibility to write data (i.e. change IP address)
 * Optimize code
 * Write tests
-* Create installable package
 * Write documentation
