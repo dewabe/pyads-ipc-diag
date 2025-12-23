@@ -1,5 +1,5 @@
 """
-mpd_service.py
+mdp_service.py
 
 Project: pyads-ipc-diag
 :author: Teemu Vartiainen
