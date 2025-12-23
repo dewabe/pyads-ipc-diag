@@ -8,7 +8,14 @@ Project: pyads-ipc-diag
 
 """
 from pyads_ipc_diag.areas import CONFIG_AREA
-from pyads_ipc_diag.data_types import UNSIGNED16, UNSIGNED32, SIGNED16, UNSIGNED64
+from pyads_ipc_diag.data_types import (
+    UNSIGNED16,
+    UNSIGNED32,
+    SIGNED16,
+    UNSIGNED64,
+    VISIBLE_STRING,
+    BOOL
+)
 
 class FakeIPC:
     def __init__(self):
@@ -29,7 +36,17 @@ class FakeIPC:
             (CONFIG_AREA.CPU, 0x8001, 3, SIGNED16): 43,
 
             # Fan
-            (CONFIG_AREA.FAN, 0x8001, 1, SIGNED16): 2500
+            (CONFIG_AREA.FAN, 0x8001, 1, SIGNED16): 2500,
+
+            # NIC
+            (CONFIG_AREA.NIC, 0x8001, 1, VISIBLE_STRING): "00:11:22:33:44:55",
+            (CONFIG_AREA.NIC, 0x8001, 2, VISIBLE_STRING): "192.168.1.100",
+            (CONFIG_AREA.NIC, 0x8001, 3, VISIBLE_STRING): "255.255.255.0",
+            (CONFIG_AREA.NIC, 0x8001, 4, BOOL): True,
+            (CONFIG_AREA.NIC, 0x8001, 5, VISIBLE_STRING): "192.168.1.1",
+            (CONFIG_AREA.NIC, 0x8001, 6, VISIBLE_STRING): "8.8.8.8",
+            (CONFIG_AREA.NIC, 0x8001, 7, VISIBLE_STRING): "eth0",
+            (CONFIG_AREA.NIC, 0x8001, 8, VISIBLE_STRING): "2",
         }
 
     def read(self, module, table_base, subindex, plc_type):
