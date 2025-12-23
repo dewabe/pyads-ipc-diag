@@ -7,9 +7,27 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 9.30
 
 """
+from dataclasses import dataclass
+
 from .mdp_service import MDPService
 from ..areas import CONFIG_AREA
-from ..data_classes import TwinCAT_Info
+
+
+@dataclass
+class TwinCATInfo:
+    major: int
+    minor: int
+    build: int
+    ams_net_id: str
+    reg_level: int
+    status: int
+    run_as_device: int
+    show_target_visu: int
+    log_file_size: int
+    log_file_path: str
+    system_id: str
+    revision: int
+    seconds_since_status_change: int
 
 class TwinCAT(MDPService):
     MODULE = CONFIG_AREA.TWINCAT
@@ -122,9 +140,9 @@ class TwinCAT(MDPService):
             self._seconds_since_status_change = self._u64(13)
         return self._seconds_since_status_change
 
-    def info(self) -> TwinCAT_Info:
+    def info(self) -> TwinCATInfo:
         """Return all TwinCAT information as a dataclass"""
-        return TwinCAT_Info(
+        return TwinCATInfo(
             major=self.major,
             minor=self.minor,
             build=self.build,

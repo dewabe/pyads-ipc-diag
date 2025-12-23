@@ -7,9 +7,16 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 9.31
 
 """
+from dataclasses import dataclass
+
 from .mdp_service import MDPService
 from ..areas import CONFIG_AREA
-from ..data_classes import CPU_Info
+
+@dataclass
+class CPUInfo:
+    frequency: int
+    usage: int
+    temperature: int
 
 class CPU(MDPService):
     MODULE = CONFIG_AREA.CPU
@@ -42,9 +49,9 @@ class CPU(MDPService):
             self._temperature = self._s16(3)
         return self._temperature
 
-    def info(self) -> CPU_Info:
+    def info(self) -> CPUInfo:
         """Return all CPU information as a dataclass"""
-        return CPU_Info(
+        return CPUInfo(
             frequency=self.frequency,
             usage=self.usage,
             temperature=self.temperature,

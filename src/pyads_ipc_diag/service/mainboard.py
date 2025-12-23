@@ -7,9 +7,27 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 9.32
 
 """
+from dataclasses import dataclass
+
 from .mdp_service import MDPService
 from ..areas import CONFIG_AREA
-from ..data_classes import Mainboard_Info
+
+@dataclass
+class MainboardInfo:
+    mainboard_type: str
+    serial_number: str
+    production_date: str
+
+    boot_count: int
+    operating_time_minutes: int
+
+    min_board_temperature: int
+    max_board_temperature: int
+
+    min_input_voltage: int
+    max_input_voltage: int
+
+    board_temperature: int
 
 class Mainboard(MDPService):
     MODULE = CONFIG_AREA.MAINBOARD
@@ -98,9 +116,9 @@ class Mainboard(MDPService):
             self._board_temperature = self._s16(10)
         return self._board_temperature
 
-    def info(self) -> Mainboard_Info:
+    def info(self) -> MainboardInfo:
         """Return all mainboard information as a dataclass"""
-        return Mainboard_Info(
+        return MainboardInfo(
             mainboard_type=self.mainboard_type,
             serial_number=self.serial_number,
             production_date=self.production_date,

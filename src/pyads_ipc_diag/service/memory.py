@@ -7,9 +7,23 @@ Project: pyads-ipc-diag
 :created on: 23.12.2025 9.32
 
 """
+from dataclasses import dataclass
+from typing import Optional
+
 from .mdp_service import MDPService
 from ..areas import CONFIG_AREA
-from ..data_classes import Memory_Info
+
+@dataclass
+class MemoryInfo:
+    program_allocated_u32: int
+    program_available_u32: int
+
+    storage_allocated_u32: Optional[int]
+    storage_available_u32: Optional[int]
+    memory_division_u32: Optional[int]
+
+    program_allocated_u64: Optional[int]
+    program_available_u64: Optional[int]
 
 class Memory(MDPService):
     MODULE = CONFIG_AREA.MEMORY
@@ -80,9 +94,9 @@ class Memory(MDPService):
             self._program_available_u64 = self._u64(7)
         return self._program_available_u64
 
-    def info(self) -> Memory_Info:
+    def info(self) -> MemoryInfo:
         """Return all memory information as a dataclass"""
-        return Memory_Info(
+        return MemoryInfo(
             program_allocated_u32=self.program_allocated_u32,
             program_available_u32=self.program_available_u32,
             storage_allocated_u32=self.storage_allocated_u32,
