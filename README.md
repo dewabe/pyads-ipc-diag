@@ -22,7 +22,7 @@ You can install it directly from GitHub.
 ### Install using pip (recommended)
 
 ```bash
-pip install git+https://github.com/dewabe/pyads-ipc-diag.git
+pip install pyads-ipc-diag
 ```
 
 ### Clone from source
