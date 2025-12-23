@@ -10,11 +10,11 @@ Python library for reading Beckhoff IPC Diagnostics data via ADS using pyads.
 Installation
 ------------
 
-Install the package directly from GitHub:
+Install the package directly from PyPi:
 
 .. code-block:: bash
 
-   pip install git+https://github.com/dewabe/pyads-ipc-diag.git
+   pip install pyads-ipc-diag
 
 
 Getting started
@@ -24,18 +24,19 @@ Import the library:
 
 .. code-block:: python
 
-   import pyads_ipc_diag
+   import pyads_ipc_diag as bhf
 
 
 Create a connection
 -------------------
 
+Ensure you have created a route to your device.
+
 Create an ADS connection using the IPC AMS Net ID:
 
 .. code-block:: python
 
-   with pyads_ipc_diag.MDP("10.10.10.11.1.1") as ipc:
-       ipc.update_modules()
+   with bhf.MDP("10.10.10.11.1.1") as ipc:
 
 
 High-level diagnostics
@@ -43,33 +44,22 @@ High-level diagnostics
 
 The library provides high-level access to common IPC Diagnostics modules.
 
-TwinCAT information:
+Available modules:
+
+* TwinCAT
+* CPU
+* Memory
+* OS
+* Mainboard
+* NIC
+* Fan
+
+Example to read TwinCAT information:
 
 .. code-block:: python
 
-   tc = pyads_ipc_diag.TwinCAT(ipc)
-
-
-CPU information:
-
-.. code-block:: python
-
-   cpu = pyads_ipc_diag.CPU(ipc)
-
-
-Memory information:
-
-.. code-block:: python
-
-   memory = pyads_ipc_diag.Memory(ipc)
-
-
-Mainboard information:
-
-.. code-block:: python
-
-   mainboard = pyads_ipc_diag.Mainboard(ipc)
-
+   tc = bhf.TwinCAT(ipc)
+   print(tc.info())
 
 Low-level access
 ----------------

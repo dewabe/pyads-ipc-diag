@@ -7,12 +7,16 @@ Project: pyads-ipc-diag
 :created on: 22.12.2025 8.50
 
 """
-from .areas import CONFIG_AREA
+from .areas import CONFIG_AREA, SERVICE_AREA, DEVICE_AREA, GENERAL_AREA
 from .mdp import MDP
 from .service import *
+import data_types
 
 __all__ = [
     'CONFIG_AREA',
+    'SERVICE_AREA',
+    'DEVICE_AREA',
+    'GENERAL_AREA',
     'MDP',
     'TwinCAT',
     'CPU',
