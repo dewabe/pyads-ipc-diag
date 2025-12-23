@@ -14,7 +14,7 @@ from pyads_ipc_diag.areas import CONFIG_AREA
 from pyads_ipc_diag.data_types import UNSIGNED32
 
 
-def test_memory_info_reads_expected_fields_and_returns_dataclass():
+def test_memory_info():
     ipc = FakeIPC()
     memory = Memory(ipc)
 

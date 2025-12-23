@@ -14,6 +14,7 @@ class FakeIPC:
     def __init__(self):
         self.calls = []
         self.responses = {
+            # Memory
             (CONFIG_AREA.MEMORY, 0x8001, 1, UNSIGNED32): 1024,
             (CONFIG_AREA.MEMORY, 0x8001, 2, UNSIGNED32): 2048,
             (CONFIG_AREA.MEMORY, 0x8001, 3, UNSIGNED32): 0,
@@ -22,9 +23,13 @@ class FakeIPC:
             (CONFIG_AREA.MEMORY, 0x8001, 6, UNSIGNED64): 0,
             (CONFIG_AREA.MEMORY, 0x8001, 7, UNSIGNED64): 0,
 
+            # CPU
             (CONFIG_AREA.CPU, 0x8001, 1, UNSIGNED32): 1917,
             (CONFIG_AREA.CPU, 0x8001, 2, UNSIGNED16): 3,
             (CONFIG_AREA.CPU, 0x8001, 3, SIGNED16): 43,
+
+            # Fan
+            (CONFIG_AREA.FAN, 0x8001, 1, SIGNED16): 2500
         }
 
     def read(self, module, table_base, subindex, plc_type):
