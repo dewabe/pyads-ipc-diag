@@ -7,12 +7,13 @@ Project: pyads-ipc-diag
 :created on: 22.12.2025 13.51
 
 """
+from typing import Union
 from pyads_ipc_diag import data_types as dtypes
 
 
 class MDPService:
     """High level class for reading MDP data """
-    def _read(self, subindex, var_type) -> int :
+    def _read(self, subindex, var_type) -> Union[int, str, None] :
         return self.ipc.read(self.MODULE, self.TABLE_BASE, subindex, var_type)
 
     def _u16(self, subindex: int) -> int:

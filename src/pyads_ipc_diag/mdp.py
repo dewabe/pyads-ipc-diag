@@ -7,6 +7,8 @@ Project: pyads-ipc-diag
 :created on: 22.12.2025 11.40
 
 """
+from typing import Union
+
 import pyads
 
 from .areas import DEVICE_AREA
@@ -70,7 +72,7 @@ class MDP:
                     mdp_module
                 })
 
-    def read(self, module, table_base, subindex, plc_type):
+    def read(self, module, table_base, subindex, plc_type) -> Union[int, str]:
         """ Read the actual values of the table and subindex
         :param module: module id
         :param table_base: table base
