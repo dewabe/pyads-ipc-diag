@@ -9,14 +9,7 @@ Project: pyads-ipc-diag
 """
 from .areas import CONFIG_AREA
 from .mdp import MDP
-from .service import (
-    TwinCAT,
-    CPU,
-    Mainboard,
-    Memory,
-    Fan,
-    NIC,
-)
+from .service import *
 
 __all__ = [
     'CONFIG_AREA',
@@ -27,4 +20,5 @@ __all__ = [
     'Memory',
     'Fan',
     'NIC',
+    'OS',
 ]

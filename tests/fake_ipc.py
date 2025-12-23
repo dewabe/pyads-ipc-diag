@@ -47,6 +47,12 @@ class FakeIPC:
             (CONFIG_AREA.NIC, 0x8001, 6, VISIBLE_STRING): "8.8.8.8",
             (CONFIG_AREA.NIC, 0x8001, 7, VISIBLE_STRING): "eth0",
             (CONFIG_AREA.NIC, 0x8001, 8, VISIBLE_STRING): "2",
+
+            # Operating System
+            (CONFIG_AREA.OS, 0x8001, 1, UNSIGNED32): 10,
+            (CONFIG_AREA.OS, 0x8001, 2, UNSIGNED32): 0,
+            (CONFIG_AREA.OS, 0x8001, 3, UNSIGNED32): 19045,
+            (CONFIG_AREA.OS, 0x8001, 4, VISIBLE_STRING): "22H2",
         }
 
     def read(self, module, table_base, subindex, plc_type):
