@@ -28,6 +28,9 @@ class MDP:
     def open(self):
         """ Open ADS conncetion to the device"""
         self._plc.open()
+        # Update module information automatically
+        if self._plc.is_open:
+            self.update_modules()
 
     def close(self):
         """ Close ADS connection to the device"""
