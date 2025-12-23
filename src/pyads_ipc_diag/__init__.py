@@ -7,7 +7,14 @@ Project: pyads-ipc-diag
 :created on: 22.12.2025 8.50
 
 """
+from .areas import CONFIG_AREA
 from .mdp import MDP
-from .service import *
+from .service import (
+    TwinCAT,
+    CPU,
+    Mainboard,
+    Memory,
+    Fan
+)
 
 __all__ = ['MDP', 'TwinCAT', 'CPU', 'Mainboard', 'Memory', 'Fan']
