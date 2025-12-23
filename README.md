@@ -16,9 +16,6 @@ The library uses [**pyads**](https://github.com/stlehmann/pyads) for ADS communi
 
 ## Installation
 
-At the moment, the package is not yet published on PyPI.  
-You can install it directly from GitHub.
-
 ### Install using pip (recommended)
 
 ```bash
