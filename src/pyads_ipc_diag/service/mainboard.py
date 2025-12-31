@@ -9,7 +9,7 @@ Project: pyads-ipc-diag
 """
 from dataclasses import dataclass
 
-from .mdp_service import MDPService
+from .mdp_service import ConfigArea
 from ..areas import CONFIG_AREA
 
 @dataclass
@@ -29,11 +29,11 @@ class MainboardInfo:
 
     board_temperature: int
 
-class Mainboard(MDPService):
+class Mainboard(ConfigArea):
     MODULE = CONFIG_AREA.MAINBOARD
 
     def __init__(self, ipc):
-        self.ipc = ipc
+        super().__init__(ipc)
         self._mainboard_type = None
         self._serial_number = None
         self._production_date = None

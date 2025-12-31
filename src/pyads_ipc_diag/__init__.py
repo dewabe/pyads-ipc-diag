@@ -10,7 +10,7 @@ Project: pyads-ipc-diag
 from .areas import CONFIG_AREA, SERVICE_AREA, DEVICE_AREA, GENERAL_AREA
 from .mdp import MDP
 from .service import *
-import data_types
+from .data_types import *
 
 __all__ = [
     'CONFIG_AREA',
@@ -25,4 +25,7 @@ __all__ = [
     'Fan',
     'NIC',
     'OS',
+    'Time',
+    'UserManagement',
+    'Software',
 ]

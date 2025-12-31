@@ -17,9 +17,25 @@ from pyads_ipc_diag.data_types import (
     BOOL
 )
 
+class FakeMdpModule:
+    def __init__(self, ipc, module):
+        self._ipc = ipc
+        self._module = module
+
+    def read(self, table_base, subindex, plc_type):
+        return self._ipc.read(self._module, table_base, subindex, plc_type)
+
+class FakeMdp:
+    def __init__(self, ipc):
+        self._ipc = ipc
+
+    def get(self, module):
+        return FakeMdpModule(self._ipc, module)
+
 class FakeIPC:
     def __init__(self):
         self.calls = []
+        self.mdp = FakeMdp(self)
         self.responses = {
             # Memory
             (CONFIG_AREA.MEMORY, 0x8001, 1, UNSIGNED32): 1024,

@@ -10,7 +10,7 @@ Project: pyads-ipc-diag
 from dataclasses import dataclass
 from typing import Optional
 
-from .mdp_service import MDPService
+from .mdp_service import ConfigArea
 from ..areas import CONFIG_AREA
 
 @dataclass
@@ -25,11 +25,11 @@ class MemoryInfo:
     program_allocated_u64: Optional[int]
     program_available_u64: Optional[int]
 
-class Memory(MDPService):
+class Memory(ConfigArea):
     MODULE = CONFIG_AREA.MEMORY
 
     def __init__(self, ipc):
-        self.ipc = ipc
+        super().__init__(ipc)
         self._program_allocated_u32 = None
         self._program_available_u32 = None
         self._storage_allocated_u32 = None

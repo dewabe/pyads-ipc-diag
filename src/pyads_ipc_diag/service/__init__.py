@@ -5,6 +5,9 @@ from .mainboard import Mainboard
 from .fan import Fan
 from .nic import NIC
 from .os import OS
+from .time import Time
+from .users import UserManagement
+from .software import Software
 
 __all__ = [
     'TwinCAT',
@@ -14,4 +17,7 @@ __all__ = [
     'Fan',
     'NIC',
     'OS',
+    'Time',
+    'UserManagement',
+    'Software',
 ]

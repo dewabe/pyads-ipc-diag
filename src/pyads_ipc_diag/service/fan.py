@@ -9,18 +9,18 @@ Project: pyads-ipc-diag
 """
 from dataclasses import dataclass
 
-from .mdp_service import MDPService
+from .mdp_service import ConfigArea
 from ..areas import CONFIG_AREA
 
 @dataclass
 class FanInfo:
     speed: int
 
-class Fan(MDPService):
+class Fan(ConfigArea):
     MODULE = CONFIG_AREA.FAN
 
     def __init__(self, ipc):
-        self.ipc = ipc
+        super().__init__(ipc)
         self._speed = None
 
     @property

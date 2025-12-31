@@ -9,11 +9,12 @@ Project: pyads-ipc-diag
 """
 from dataclasses import dataclass
 
-from .mdp_service import MDPService
+from .mdp_service import ConfigArea
 from ..areas import CONFIG_AREA
 
 @dataclass
 class NICInfo:
+    length: int
     mac_address: str
     ipv4_address: str
     ipv4_netmask: str
@@ -23,11 +24,13 @@ class NICInfo:
     virtual_device_name: str # Ony for Windows
     ipv4_dns_servers_active: str # Only for TwinCAT/BSD and TC/RTOS
 
-class NIC(MDPService):
+class NIC(ConfigArea):
     MODULE = CONFIG_AREA.NIC
 
     def __init__(self, ipc):
-        self.ipc = ipc
+        super().__init__(ipc)
+        self._modules = self.ipc.mdp.get(self.MODULE)
+        self._length = None
         self._mac_address = None
         self._ipv4_address = None
         self._ipv4_netmask = None
@@ -36,6 +39,13 @@ class NIC(MDPService):
         self._ipv4_dns = None
         self._virtual_device_name = None
         self._ipv4_dns_servers_active = None
+
+    @property
+    def length(self) -> int:
+        """MAC address (VISIBLE STRING)"""
+        if self._length is None:
+            self._length = self._u16(0)
+        return self._length
 
     @property
     def mac_address(self) -> str:
@@ -87,14 +97,28 @@ class NIC(MDPService):
         return self._virtual_device_name
 
     @property
-    def ipv4_dns_servers_active(self) -> int:
+    def ipv4_dns_servers_active(self) -> str:
         """Number of active IPv4 DNS servers (UNSIGNED16)"""
         if self._ipv4_dns_servers_active is None:
             self._ipv4_dns_servers_active = self._string(8)
         return self._ipv4_dns_servers_active
 
+    def properties(self):
+        return NICInfo(
+            length=self.length,
+            mac_address=self.mac_address,
+            ipv4_address=self.ipv4_address,
+            ipv4_netmask=self.ipv4_netmask,
+            dhcp_enabled=self.dhcp_enabled,
+            ipv4_gateway=self.ipv4_gateway,
+            ipv4_dns=self.ipv4_dns,
+            virtual_device_name=self.virtual_device_name,
+            ipv4_dns_servers_active=self.ipv4_dns_servers_active,
+        )
+
     def refresh(self):
         """Force re-reading all NIC values from IPC"""
+        self._length = None
         self._mac_address = None
         self._ipv4_address = None
         self._ipv4_netmask = None

@@ -7,7 +7,8 @@ Project: pyads-ipc-diag
 :created on: 22.12.2025 11.40
 
 """
-from typing import Union
+from typing import Union, Any, List
+from collections import defaultdict
 
 import pyads
 
@@ -66,28 +67,37 @@ class MDP:
     def update_modules(self):
         """ Update all available modules"""
         module_count = self._get_module_count()
+        mdp_by_type = defaultdict(set)
+
         for i in range(1, module_count + 1):
             mdp_module = self._read((DEVICE_AREA.MODULE_ID_LIST << 16) + i, UNSIGNED32)
             mdp_type = (mdp_module & 0xFFFF0000) >> 16
-            if mdp_type not in self.mdp:
-                self.mdp.update({
-                    mdp_type:
-                    mdp_module
-                })
+            mdp_by_type[mdp_type].add(mdp_module)
 
-    def read(self, module, table_base, subindex, plc_type) -> Union[int, str]:
+        self.mdp = {k: sorted(v) for k, v in mdp_by_type.items()}
+
+
+    def read(self, module, table_base, subindex, plc_type, default=None) -> Union[Any, List[Any], None]:
         """ Read the actual values of the table and subindex
         :param module: module id
         :param table_base: table base
         :param subindex: subindex
-        :param plc_type: pyads type"""
-        if module not in self.mdp:
-            try:
-                mpd_addr = (module << 16) | subindex
-                return self._read(mpd_addr, plc_type)
-            except Exception as e:
-                return None
+        :param plc_type: pyads type
+        :param default: default value to return, default None"""
+        modules = self.mdp.get(module)
+        if modules:
+            values: List[Any] = []
+            for _module in modules:
+                mpd_id = _module & 0x0000FFFF
+                mpd_addr = (mpd_id << 20) | (table_base << 16) | subindex
+                values.append(self._read(mpd_addr, plc_type))
 
-        mpd_id = self.mdp[module] & 0x0000FFFF
-        mpd_addr = (mpd_id << 20) | (table_base << 16) | subindex
-        return self._read(mpd_addr, plc_type)
+            return values[0] if len(values) == 1 else values
+
+        try:
+            mpd_addr = (module << 16) | subindex
+            return self._read(mpd_addr, plc_type)
+        except Exception as e:
+            return default
+
+

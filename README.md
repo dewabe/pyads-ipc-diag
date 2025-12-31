@@ -12,6 +12,8 @@ The library uses [**pyads**](https://github.com/stlehmann/pyads) for ADS communi
 
 **This project is still under development and may be unstable.**
 
+Documentation is also under preparation!
+
 ---
 
 ## Installation
@@ -34,9 +36,20 @@ pip install -e .
 
 ## Features
 
-- Read all IPC Diagnostics data via ADS
-- Read TwinCAT, CPU, and Mainboard information
-- Designed with a clean, extensible API
+- Read all IPC Diagnostics data via ADS - just check the documentation provided by Beckhoff
+- Available modules to read: CPU, Fan, Mainboard, Memory, NIC, OS, Software, Time, TwinCAT, UserManagement
+
+### Command Line Arguments
+You can also use command line arguments, in example store all the data into file output.json:
+```bash
+pyads-ipc-diag --ams-net-id 1.2.3.4.1.1 --module all --json output.json
+```
+
+For more information, use
+
+```bash
+pyads-ipc-diag -h
+```
 
 ---
 
@@ -48,7 +61,7 @@ from pyads_ipc_diag import MDP, CPU, CONFIG_AREA
 
 with MDP("10.10.10.11.1.1") as ipc:
     cpu = CPU(ipc)
-    print(cpu.info())
+    print(cpu.properties())
     # CPU_Info(
     #   frequency=1917,
     #   usage=3,

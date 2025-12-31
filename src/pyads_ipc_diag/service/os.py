@@ -10,7 +10,7 @@ Project: pyads-ipc-diag
 
 from dataclasses import dataclass
 
-from .mdp_service import MDPService
+from .mdp_service import ConfigArea
 from ..areas import CONFIG_AREA
 
 
@@ -22,11 +22,11 @@ class OSInfo:
     csd_version: str
 
 
-class OS(MDPService):
+class OS(ConfigArea):
     MODULE = CONFIG_AREA.OS
 
     def __init__(self, ipc):
-        self.ipc = ipc
+        super().__init__(ipc)
         self._major_version = None
         self._minor_version = None
         self._build = None
@@ -75,3 +75,4 @@ class OS(MDPService):
         self._minor_version = None
         self._build = None
         self._csd_version = None
+        self._init = False

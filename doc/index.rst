@@ -20,7 +20,26 @@ Install the package directly from PyPi:
 Getting started
 ---------------
 
-Import the library:
+**Command line usage**
+
+.. code-block:: bash
+
+   pyads-ipc-diag --ams-net-id [ams_net_id] --module [module] --json [output file]
+
+Where
+
+* ams_net_id is the AMS Net ID of the target device (you must have a router created!)
+* module is the module you want to read, or use parameter 'all' to read all available ones
+* output file is the file name you want to store the data in json format
+
+For more information use
+
+.. code-block:: bash
+
+   pyads-ipc-diag --help
+
+
+**Import the library**:
 
 .. code-block:: python
 
@@ -46,13 +65,16 @@ The library provides high-level access to common IPC Diagnostics modules.
 
 Available modules:
 
-* TwinCAT
 * CPU
-* Memory
-* OS
-* Mainboard
-* NIC
 * Fan
+* Mainboard
+* Memory
+* NIC
+* OS
+* Software
+* Time
+* TwinCAT
+* UserManagement
 
 Example to read TwinCAT information:
 

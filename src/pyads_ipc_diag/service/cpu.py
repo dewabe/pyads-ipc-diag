@@ -9,7 +9,7 @@ Project: pyads-ipc-diag
 """
 from dataclasses import dataclass
 
-from .mdp_service import MDPService
+from .mdp_service import ConfigArea
 from ..areas import CONFIG_AREA
 
 @dataclass
@@ -18,11 +18,11 @@ class CPUInfo:
     usage: int
     temperature: int
 
-class CPU(MDPService):
+class CPU(ConfigArea):
     MODULE = CONFIG_AREA.CPU
 
     def __init__(self, ipc):
-        self.ipc = ipc
+        super().__init__(ipc)
         self._frequency = None
         self._usage = None
         self._temperature = None
